@@ -10,7 +10,6 @@ RUN apt-get install -y curl mariadb-server wget vim
 COPY ./srcs/nginx.conf ./
 COPY ./srcs/wp-config.php ./
 COPY ./srcs/wordpress.sql ./
-COPY ./srcs/start.sh ./
 
 # Nginx
 RUN rm -rf /etc/nginx/sites-enabled/*
@@ -45,4 +44,4 @@ RUN cp -r wp-config.php /var/www/html/wordpress
 RUN chown -R www-data:www-data /var/www/html/*
 RUN chmod -R 755 /var/www/html/*
 
-CMD bash start.sh
+CMD service mysql start && service nginx start && service php7.3-fpm start && bash
